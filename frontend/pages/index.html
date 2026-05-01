@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CampusKart</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<nav>
+    <span class="brand">CampusKart</span>
+    <div class="nav-links">
+        <a href="index.html" class="active">Browse</a>
+        <a href="add-product.html">+ Add Product</a>
+        <a href="my-listings.html">My Listings</a>
+        <button onclick="logout()">Logout</button>
+    </div>
+</nav>
+
+<div class="page">
+    <div class="page-header">
+        <h2>Browse Listings</h2>
+        <p id="user"></p>
+    </div>
+
+    <div class="filter-bar">
+        <input id="search-location" placeholder="Filter by location">
+        <select id="search-category">
+            <option value="">All Categories</option>
+            <option value="Notes">Notes</option>
+            <option value="Books">Books</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Stationery">Stationery</option>
+            <option value="Other">Other</option>
+        </select>
+        <button onclick="applyFilter()">Search</button>
+        <button onclick="clearFilter()">Clear</button>
+    </div>
+
+    <div id="products" class="product-grid"></div>
+</div>
+
+<script src="../js/api.js"></script>
+<script>
+    requireAuth();
+
+    document.getElementById("user").innerText = "Logged in as: " + getLoggedInUser();
+
+    function renderProducts(products) {
+        const grid = document.getElementById("products");
+        if (products.length === 0) {
+            grid.innerHTML = `<p style="color:#999">No products found.</p>`;
+            return;
+        }
+        grid.innerHTML = products.map(p => `
+            <div class="card">
+                <div class="card-body">
+                    <span class="badge">${p.category}</span>
+                    <h3>${p.title}</h3>
+                    <p class="description">${p.description}</p>
+                    <p class="price">₹${p.price}</p>
+                    <p class="location">📍 ${p.location}</p>
+                    <p class="location">🧑 ${p.sellerEmail}</p>
+                </div>
+            </div>
+        `).join("");
+    }
+
+    function applyFilter() {
+        const location = document.getElementById("search-location").value.trim();
+        const category = document.getElementById("search-category").value;
+
+        if (location) {
+            apiGetByLocation(location).then(renderProducts);
+        } else if (category) {
+            apiGetByCategory(category).then(renderProducts);
+        } else {
+            apiGetAllProducts().then(renderProducts);
+        }
+    }
+
+    function clearFilter() {
+        document.getElementById("search-location").value = "";
+        document.getElementById("search-category").value = "";
+        apiGetAllProducts().then(renderProducts);
+    }
+
+    // load all on page open
+    apiGetAllProducts().then(renderProducts);
+</script>
+
+</body>
+</html>

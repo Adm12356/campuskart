@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Product - CampusKart</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<nav>
+    <span class="brand">CampusKart</span>
+    <div class="nav-links">
+        <a href="index.html">Browse</a>
+        <a href="add-product.html" class="active">+ Add Product</a>
+        <a href="my-listings.html">My Listings</a>
+        <button onclick="logout()">Logout</button>
+    </div>
+</nav>
+
+<div class="page">
+    <div class="form-container">
+        <h2>List a Product</h2>
+
+        <div class="form-group">
+            <label>Title</label>
+            <input id="title" type="text" placeholder="e.g. DSA Handwritten Notes">
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea id="description" placeholder="Describe your product..."></textarea>
+        </div>
+        <div class="form-group">
+            <label>Price (₹)</label>
+            <input id="price" type="number" placeholder="e.g. 150">
+        </div>
+        <div class="form-group">
+            <label>Location</label>
+            <input id="location" type="text" placeholder="e.g. Hostel Block A">
+        </div>
+        <div class="form-group">
+            <label>Category</label>
+            <select id="category">
+                <option value="">Select category</option>
+                <option value="Notes">Notes</option>
+                <option value="Books">Books</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Stationery">Stationery</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+
+        <button class="btn-primary" onclick="addProduct()">Post Listing</button>
+
+        <p class="msg" id="msg"></p>
+    </div>
+</div>
+
+<script src="../js/api.js"></script>
+<script src="../js/product.js"></script>
+
+</body>
+</html>

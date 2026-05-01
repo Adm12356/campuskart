@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register - CampusKart</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div class="auth-container">
+    <h2>Create account</h2>
+    <p class="subtitle">Join CampusKart and start buying or selling</p>
+
+    <input id="name" type="text" placeholder="Full Name">
+    <input id="email" type="email" placeholder="Email">
+    <input id="password" type="password" placeholder="Password (min 6 chars)">
+
+    <button class="btn-primary" onclick="register()">Register</button>
+
+    <p class="msg" id="msg"></p>
+
+    <p class="footer-link">Already have an account? <a href="login.html">Login</a></p>
+</div>
+
+<script src="../js/api.js"></script>
+<script src="../js/register.js"></script>
+
+</body>
+</html>
